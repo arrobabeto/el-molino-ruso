@@ -9,14 +9,14 @@
  */
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: ui-serif, Georgia, serif;
+  --font-serif: "Georgia", ui-serif, serif;
 
-  --color-brand-50: #f0f7ff;
-  --color-brand-100: #e0effe;
-  --color-brand-300: #7cc4fa;
-  --color-brand-500: #0ea5e9;
-  --color-brand-700: #0369a1;
-  --color-brand-900: #0e2138;
+  --color-brand-50: #fdf6f0;
+  --color-brand-100: #f9e8d9;
+  --color-brand-300: #d4a574;
+  --color-brand-500: #b45309;
+  --color-brand-700: #92400e;
+  --color-brand-900: #451a03;
 
   --spacing-section: 5rem;
 }

@@ -1,7 +1,7 @@
 {
   "requiredPages": {
     "home": {
-      "components": ["SectionWelcome"]
+      "components": ["SectionHero", "SectionFeatureGrid", "SectionCta"]
     }
   }
 }

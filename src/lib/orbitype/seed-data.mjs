@@ -8,149 +8,107 @@ export function buildSeedPages({
   hasSqlKeyConfigured = false,
   apiKeysUrl = API_KEYS_URL,
 } = {}) {
+  void hasSqlKeyConfigured
+  void apiKeysUrl
+
   return [
     {
       id: "seed-home",
       slug: "home",
       title: {
-        en: "Welcome",
-        de: "Willkommen",
+        es: "Inicio",
+        en: "Home",
       },
       lead: {
-        en: "Get your Orbitype-powered Astro site running in a few steps.",
-        de: "Bringen Sie Ihre Orbitype-Astro-Site in wenigen Schritten zum Laufen.",
+        es: "Panadería de especialidad en el corazón de San Luis Potosí.",
+        en: "Specialty bakery in the heart of San Luis Potosí.",
       },
       img: "",
-      keywords: ["welcome", "setup", "orbitype"],
+      keywords: [
+        "panadería",
+        "san luis potosí",
+        "pan artesanal",
+        "el molino ruso",
+      ],
       head: {},
       created_at: now(),
       updated_at: now(),
       sections: [
         {
           title: {
-            en: "Welcome to your Astro + Orbitype site",
-            de: "Willkommen bei Ihrer Astro + Orbitype Site",
+            es: "El Molino Ruso",
+            en: "El Molino Ruso",
           },
           lead: {
-            en: "This screen appears when the CMS is empty, unconfigured, or running in mock mode. Follow the steps below to connect Orbitype and publish real content.",
-            de: "Dieser Bildschirm erscheint, wenn das CMS leer, nicht konfiguriert oder im Mock-Modus ist. Folgen Sie den Schritten unten.",
+            es: "Pan artesanal, repostería y tradición rusa con ingredientes de calidad. Horneamos cada día en San Luis Potosí.",
+            en: "Artisan bread, pastries and Russian tradition with quality ingredients. Baked fresh daily in San Luis Potosí.",
           },
-          capabilities: [
+          ctaLabel: {
+            es: "Conoce nuestros productos",
+            en: "Discover our products",
+          },
+          ctaHref: "/posts",
+          img: "",
+          _orbi: { component: "SectionHero" },
+        },
+        {
+          title: {
+            es: "Lo que nos distingue",
+            en: "What sets us apart",
+          },
+          lead: {
+            es: "Recetas de tradición europea, fermentación lenta y productos hechos a mano.",
+            en: "European tradition recipes, slow fermentation and handmade products.",
+          },
+          items: [
             {
-              title: { en: "Zero client JS by default", de: "Kein Client-JS" },
-              text: {
-                en: "Content pages ship HTML and CSS only — no framework runtime.",
-                de: "Inhaltsseiten liefern nur HTML und CSS — kein Framework-Runtime.",
+              title: {
+                es: "Pan de fermentación lenta",
+                en: "Slow-fermented bread",
               },
-              badge: "perf",
+              text: {
+                es: "Masa madre y tiempos de reposo que desarrollan sabor y textura únicos.",
+                en: "Sourdough and resting times that develop unique flavor and texture.",
+              },
             },
             {
-              title: { en: "Section-driven pages", de: "Abschnittsbasiert" },
+              title: {
+                es: "Repostería de especialidad",
+                en: "Specialty pastries",
+              },
               text: {
-                en: "Compose pages from CMS JSON. Each section maps to one .astro file by name.",
-                de: "Seiten aus CMS-JSON zusammensetzen. Jeder Abschnitt entspricht einer .astro-Datei.",
+                es: "Brioche, croissants, pasteles y dulces inspirados en la tradición rusa y europea.",
+                en: "Brioche, croissants, cakes and sweets inspired by Russian and European tradition.",
               },
             },
             {
-              title: { en: "MCP authoring", de: "MCP-Authoring" },
+              title: {
+                es: "Ingredientes selectos",
+                en: "Select ingredients",
+              },
               text: {
-                en: "Read and write content from Cursor via Orbitype MCP — never leave the editor.",
-                de: "Inhalte über Orbitype MCP in Cursor lesen und schreiben.",
+                es: "Harinas de calidad, mantequilla europea y recetas cuidadas en cada lote.",
+                en: "Quality flours, European butter and carefully crafted recipes in every batch.",
               },
             },
           ],
-          steps: [
-            {
-              title: {
-                en: "Create a SQL connector",
-                de: "SQL-Connector erstellen",
-              },
-              text: {
-                en: "In Orbitype, create a SQL connector and point it at your Postgres database.",
-                de: "Erstellen Sie in Orbitype einen SQL-Connector und verbinden Sie Ihre Postgres-Datenbank.",
-              },
-            },
-            {
-              title: {
-                en: "Create a connector-scoped API key",
-                de: "API-Schlüssel erstellen",
-              },
-              text: {
-                en: `Create a key scoped to that connector at ${apiKeysUrl}.`,
-                de: `Erstellen Sie einen Schlüssel für diesen Connector unter ${apiKeysUrl}.`,
-              },
-            },
-            {
-              title: {
-                en: "Add credentials to .env",
-                de: "Zugangsdaten in .env",
-              },
-              text: {
-                en: "Set ORBITYPE_API_SQL_URL, ORBITYPE_API_SQL_KEY, and ORBITYPE_MOCK=false.",
-                de: "Setzen Sie ORBITYPE_API_SQL_URL, ORBITYPE_API_SQL_KEY und ORBITYPE_MOCK=false.",
-              },
-              code: `ORBITYPE_MOCK=false
-ORBITYPE_API_SQL_URL=https://core.orbitype.com/api/sql/v1
-ORBITYPE_API_SQL_KEY=your-connector-key`,
-            },
-            {
-              title: {
-                en: "Install the CMS schema",
-                de: "CMS-Schema installieren",
-              },
-              text: {
-                en: "From an authorized machine run: pnpm run cms:install. Creates uid() and the CMS tables. Safe to re-run.",
-                de: "Auf einem autorisierten Rechner: pnpm run cms:install. Erstellt uid() und die CMS-Tabellen.",
-              },
-              kind: "cli",
-              code: "pnpm run cms:install",
-            },
-            {
-              title: {
-                en: "Seed starter content",
-                de: "Starter-Inhalte laden",
-              },
-              text: {
-                en: "Run: pnpm run cms:seed. Inserts the homepage and a sample post. Skips rows that already exist.",
-                de: "Ausführen: pnpm run cms:seed. Fügt Startseite und Beispielbeitrag ein.",
-              },
-              kind: "cli",
-              code: "pnpm run cms:seed",
-            },
-            {
-              title: {
-                en: "Wire Orbitype MCP",
-                de: "Orbitype MCP einrichten",
-              },
-              text: {
-                en: "Export ORBITYPE_SQL_API_KEY (run pnpm run mcp:env), reload MCP in Cursor, then call orbitype_get_context.",
-                de: "ORBITYPE_SQL_API_KEY exportieren (pnpm run mcp:env), MCP neu laden, dann orbitype_get_context aufrufen.",
-              },
-              code: `{
-  "mcpServers": {
-    "orbitype-sql": {
-      "url": "https://core.orbitype.com/api/mcp/v1",
-      "headers": {
-        "X-API-KEY": "\${env:ORBITYPE_SQL_API_KEY}"
-      }
-    }
-  }
-}`,
-            },
-            {
-              title: {
-                en: "Build your first section",
-                de: "Ersten Abschnitt bauen",
-              },
-              text: {
-                en: "Add src/components/sections/SectionName.astro, then append matching JSON to pages.sections via SQL.",
-                de: "SectionName.astro anlegen, dann passendes JSON per SQL anhängen.",
-              },
-            },
-          ],
-          hasSqlKeyConfigured,
-          apiKeysUrl,
-          _orbi: { component: "SectionWelcome" },
+          _orbi: { component: "SectionFeatureGrid" },
+        },
+        {
+          title: {
+            es: "Visítanos en San Luis Potosí",
+            en: "Visit us in San Luis Potosí",
+          },
+          lead: {
+            es: "Pasa por nuestra panadería y descubre el aroma del pan recién horneado.",
+            en: "Stop by our bakery and discover the aroma of freshly baked bread.",
+          },
+          ctaLabel: {
+            es: "Contáctanos",
+            en: "Contact us",
+          },
+          ctaHref: "/contacto",
+          _orbi: { component: "SectionCta" },
         },
       ],
     },
@@ -162,30 +120,30 @@ export function buildSeedPosts() {
     {
       id: "seed-post-1",
       title: {
-        en: "Getting started with sections",
-        de: "Erste Schritte mit Abschnitten",
+        es: "Nuestra historia",
+        en: "Our story",
       },
       lead: {
-        en: "<p>How CMS JSON becomes rendered HTML.</p>",
-        de: "<p>Wie CMS-JSON zu gerendertem HTML wird.</p>",
+        es: "<p>El Molino Ruso nace de la pasión por el pan artesanal y las recetas de tradición europea en San Luis Potosí.</p>",
+        en: "<p>El Molino Ruso was born from a passion for artisan bread and European tradition recipes in San Luis Potosí.</p>",
       },
       img: "",
       status: {
         options: ["draft", "review", "published"],
         value: "published",
       },
-      keywords: ["sections", "orbitype"],
+      keywords: ["historia", "panadería", "san luis potosí"],
       created_at: now(),
       updated_at: now(),
       sections: [
         {
           title: {
-            en: "One file per section",
-            de: "Eine Datei pro Abschnitt",
+            es: "Tradición y oficio",
+            en: "Tradition and craft",
           },
           content: {
-            en: "<p>Create <code>SectionName.astro</code> in <code>src/components/sections/</code>. The filename must match <code>_orbi.component</code> exactly.</p>",
-            de: "<p>Erstellen Sie <code>SectionName.astro</code>. Der Dateiname muss genau <code>_orbi.component</code> entsprechen.</p>",
+            es: "<p>Cada pieza que sale de nuestro horno refleja años de aprendizaje, técnicas de fermentación lenta y el cuidado por los detalles. En El Molino Ruso combinamos la herencia de la panadería rusa con ingredientes locales de la mejor calidad.</p>",
+            en: "<p>Every item from our oven reflects years of learning, slow fermentation techniques and attention to detail. At El Molino Ruso we combine Russian baking heritage with the finest local ingredients.</p>",
           },
           _orbi: { component: "SectionProse" },
         },

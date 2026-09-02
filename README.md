@@ -1,33 +1,14 @@
-# Orbitype Astro Template
+# El Molino Ruso
 
-A zero-JavaScript-by-default Astro starter for [Orbitype](https://www.orbitype.com)-powered websites. Pages are composed from CMS-authored JSON sections, SEO is server-rendered, and CDN caching uses native Astro/`@astrojs/vercel` tags.
+Sitio web de **El Molino Ruso**, panadería de especialidad en San Luis Potosí, México. Construido con [Astro](https://astro.build) y [Orbitype](https://www.orbitype.com) como CMS.
 
-Use it for landing pages, marketing sites, brochure sites and documentation sites — anywhere content dominates and interactivity is incidental.
+Pan artesanal, repostería y tradición rusa con ingredientes de calidad. Las páginas se componen desde secciones JSON del CMS, el SEO se renderiza en servidor y el caché CDN usa tags nativos de Astro/`@astrojs/vercel`.
 
-> Independent Astro counterpart to a Nuxt/Vue Orbitype CMS template. Same `pages` / `posts` / `settings` schema and `sections` JSON convention.
-
----
-
-## Feature status
-
-| Feature                                | Status                                                     |
-| -------------------------------------- | ---------------------------------------------------------- |
-| CMS catch-all router `[...slug].astro` | Ready                                                      |
-| Mock mode + seed content               | Ready                                                      |
-| Schema install / seed                  | Ready — **CLI only** (`pnpm run cms:install` / `cms:seed`) |
-| `RENDER_MODE=server`                   | Ready                                                      |
-| `RENDER_MODE=static`                   | Ready (pages prerendered; `/api/**` remain serverless)     |
-| E2E without live Orbitype keys         | Ready                                                      |
-| Contact form + email provider          | Stub — wire `EmailProvider` before launch                  |
-| CDN cache HIT verification             | Needs a Vercel project                                     |
-| Orbitype Workflow → `/api/revalidate`  | Code ready; Workflow not verified end-to-end               |
-| CI (GitHub Actions)                    | See `.github/workflows/ci.yml`                             |
-
-Do not describe an incomplete row as production-ready for a client launch.
+> Proyecto basado en el template [orbitype-astro-template](https://github.com/arrobabeto/orbitype-astro-template).
 
 ---
 
-## Quick start
+## Inicio rápido
 
 ```bash
 corepack enable
@@ -36,76 +17,60 @@ pnpm run setup
 pnpm dev
 ```
 
-Open `http://localhost:4321`. No credentials are needed — the template starts in **mock mode** and serves **built-in content** until you connect a CMS.
+Abre `http://localhost:4321`. No se necesitan credenciales — el proyecto arranca en **modo mock** con contenido de ejemplo hasta conectar el CMS.
 
-Note the explicit `run` in `pnpm run setup`. `pnpm setup` is a built-in pnpm command and will not run the project script.
+Nota: usa `pnpm run setup` (con `run`). `pnpm setup` es un comando integrado de pnpm y no ejecuta el script del proyecto.
 
-For a **client project** cloned from this template, also run `pnpm run bootstrap` (package name, locale, favicon, `template.lock.json`).
+## Requisitos
 
-## Requirements
-
-- Node **24.x** (see `.nvmrc` / `.node-version` / `engines`). Pin the same major in Vercel Project Settings.
-- pnpm 11, via `corepack enable`.
+- Node **24.x** (ver `.nvmrc` / `.node-version` / `engines`)
+- pnpm 11, vía `corepack enable`
 
 ## Scripts
 
-| Script                  | Purpose                                                |
+| Script                  | Propósito                                              |
 | ----------------------- | ------------------------------------------------------ |
-| `pnpm dev`              | Dev server on port 4321                                |
-| `pnpm run build`        | Production build (current `RENDER_MODE`)               |
-| `pnpm run build:server` | Server build; fails on unexpected warnings             |
-| `pnpm run build:static` | Static prerender build                                 |
-| `pnpm run setup`        | Create `.env` from `.env.example`, sync types, husky   |
-| `pnpm run bootstrap`    | Clone checklist for a real project                     |
-| `pnpm run cms:install`  | Install CMS schema (CLI, confirms connector)           |
-| `pnpm run cms:migrate`  | Additive migrations                                    |
-| `pnpm run cms:seed`     | Seed starter rows                                      |
-| `pnpm run lint`         | ESLint, zero warnings                                  |
+| `pnpm dev`              | Servidor de desarrollo en el puerto 4321               |
+| `pnpm run build`        | Build de producción (según `RENDER_MODE`)              |
+| `pnpm run build:server` | Build en modo servidor                                 |
+| `pnpm run build:static` | Build con prerender estático                           |
+| `pnpm run setup`        | Crea `.env` desde `.env.example`, sync de tipos, husky |
+| `pnpm run cms:install`  | Instala el schema del CMS (CLI)                        |
+| `pnpm run cms:seed`     | Siembra contenido inicial                              |
+| `pnpm run lint`         | ESLint                                                 |
 | `pnpm run typecheck`    | `astro check`                                          |
-| `pnpm run verify`       | Lint, typecheck, leakage, e2e, both builds (mock)      |
-| `pnpm run mcp:env`      | Show whether MCP env vars are present (no secret dump) |
-| `pnpm run mcp:verify`   | Check Orbitype MCP wiring                              |
-| `pnpm run figma:verify` | Check Figma REST connection                            |
+| `pnpm run verify`       | Lint, typecheck, e2e y builds (mock)                   |
 
-There is **no** `astro preview` script: `@astrojs/vercel` does not support it. Use `pnpm dev` locally, or a Vercel preview deployment for CDN behaviour.
+No hay script `astro preview`: `@astrojs/vercel` no lo soporta. Usa `pnpm dev` localmente o un deploy de preview en Vercel.
 
-## Documentation
+## Configuración del proyecto
 
-| Document                                                       | Contents                                     |
-| -------------------------------------------------------------- | -------------------------------------------- |
-| [docs/00-TEMPLATE-BLUEPRINT.md](docs/00-TEMPLATE-BLUEPRINT.md) | Architecture and Orbitype contract           |
-| [docs/01-orbitype-cms.md](docs/01-orbitype-cms.md)             | Operator CMS guide                           |
-| [docs/03-deployment.md](docs/03-deployment.md)                 | Vercel, render modes, revalidate             |
-| [docs/preview-promote.md](docs/preview-promote.md)             | Preview checks → promote → rollback          |
-| [docs/vercel-linking.md](docs/vercel-linking.md)               | Linking Vercel without committing `.vercel/` |
-| [docs/DEVIATIONS.md](docs/DEVIATIONS.md)                       | Verified departures                          |
-| `docs/adr/`                                                    | Architecture decision records                |
+| Variable                   | Valor actual                                                   |
+| -------------------------- | -------------------------------------------------------------- |
+| `PUBLIC_SITE_NAME`         | El Molino Ruso                                                 |
+| `PUBLIC_ORGANIZATION_NAME` | El Molino Ruso                                                 |
+| `PUBLIC_SITE_DESCRIPTION`  | Panadería de especialidad en San Luis Potosí                   |
+| `PUBLIC_SITE_URL` (prod)   | `https://elmolinoruso.com` (pendiente de configurar en Vercel) |
+| Locale                     | `es` (español)                                                 |
 
-## Configuring a project
+### Conectar Orbitype CMS
 
-1. `pnpm run bootstrap` (or manually set `name` in `package.json`).
-2. Replace `public/favicon.svg` (bootstrap fails if the template hash remains).
-3. Fill in the `PUBLIC_*` variables in `.env` — production must use `https://`, never localhost.
-4. Create an Orbitype SQL connector key; set `ORBITYPE_API_SQL_KEY`; set `ORBITYPE_MOCK=false`.
-5. Run `pnpm run cms:install` then `pnpm run cms:seed` from an authorized machine (**never** via HTTP).
-6. Export authoring keys for Cursor MCP (`pnpm run mcp:env -- --write-file …`), reload MCP.
-7. Set design tokens in `src/styles/global.css`.
-8. Confirm locale in `src/config/locales.ts`.
+1. Reemplaza `public/favicon.svg` con el logo de la panadería.
+2. Configura las variables `PUBLIC_*` en `.env` — en producción usa `https://`, nunca localhost.
+3. Crea una API key SQL en Orbitype; configura `ORBITYPE_API_SQL_KEY` y `ORBITYPE_MOCK=false`.
+4. Ejecuta `pnpm run cms:install` y luego `pnpm run cms:seed` desde una máquina autorizada.
+5. Ajusta los tokens de diseño en `src/styles/global.css` (colores cálidos de panadería ya aplicados).
+6. Edita el contenido del CMS: home con `SectionHero`, `SectionFeatureGrid` y `SectionCta`.
 
-## Rendering modes
+## Documentación del template
 
-`RENDER_MODE=server` (default) renders on demand and caches at the CDN.
+| Documento                                                      | Contenido                            |
+| -------------------------------------------------------------- | ------------------------------------ |
+| [docs/00-TEMPLATE-BLUEPRINT.md](docs/00-TEMPLATE-BLUEPRINT.md) | Arquitectura y contrato Orbitype     |
+| [docs/01-orbitype-cms.md](docs/01-orbitype-cms.md)             | Guía del CMS para operadores         |
+| [docs/03-deployment.md](docs/03-deployment.md)                 | Vercel, modos de render y revalidate |
+| [docs/02-sections-cookbook.md](docs/02-sections-cookbook.md)   | Catálogo de secciones disponibles    |
 
-`RENDER_MODE=static` prerenders CMS pages at build time. API routes under `src/pages/api/` still deploy as serverless functions. Content changes need a rebuild (or keep server mode + revalidate).
+## Licencia
 
-Caching is inert under `astro dev`. Observe CDN behaviour on a Vercel preview/production deployment — not via `astro preview`.
-
-## MCP and agents
-
-- Cursor: `.cursor/mcp.json` + `.cursor/rules` + `.cursor/skills` (symlinks into `.agents/skills`).
-- Codex / ChatGPT desktop: `AGENTS.md` + `.agents/skills`.
-- ChatGPT web needs a platform connector/plugin — a local `.env` alone is not enough.
-
-## License
-
-Proprietary.
+Propietario — El Molino Ruso.

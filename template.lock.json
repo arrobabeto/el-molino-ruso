@@ -1,9 +1,12 @@
 {
-  "repository": "arrobabeto/orbitype-astro-template",
+  "repository": "arrobabeto/el-molino-ruso",
   "version": "0.1.0",
   "commit": null,
-  "createdAt": null,
-  "owner": null,
+  "createdAt": "2026-09-02T01:26:00.000Z",
+  "owner": "arrobabeto",
   "productionBranch": "main",
-  "notes": "Filled by pnpm run bootstrap when cloning into a client project."
+  "connectorId": null,
+  "domain": "https://elmolinoruso.com",
+  "locale": "es",
+  "notes": "Panadería de especialidad en San Luis Potosí, México."
 }

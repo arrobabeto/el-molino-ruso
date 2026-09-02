@@ -3,7 +3,7 @@ import { DEFAULT_LOCALE, isLocale } from "~/config/locales"
 import type { I18nString } from "~/types/i18n"
 
 /**
- * Resolve a localized field. Order: requested locale → en → empty string.
+ * Resolve a localized field. Order: requested locale → default locale → en → empty string.
  * Never returns undefined or a placeholder like "...".
  */
 export function translate(
@@ -12,7 +12,7 @@ export function translate(
 ): string {
   if (!value) return ""
   if (typeof value === "string") return value
-  return value[locale] ?? value.en ?? ""
+  return value[locale] ?? value[DEFAULT_LOCALE] ?? value.en ?? ""
 }
 
 export type ParsedRoute = {
