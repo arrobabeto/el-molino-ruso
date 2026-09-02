@@ -110,12 +110,12 @@ export default defineConfig({
       PUBLIC_ORGANIZATION_LOGO: envField.string({
         context: "client",
         access: "public",
-        default: "/favicon.svg",
+        default: "/images/logo.avif",
       }),
       PUBLIC_OG_LOGO_PATH: envField.string({
         context: "client",
         access: "public",
-        default: "/favicon.svg",
+        default: "/images/logo.avif",
       }),
       PUBLIC_OG_IMAGE_ENABLED: envField.boolean({
         context: "client",

@@ -23,6 +23,7 @@
     "mcp:safety": "node scripts/check-mcp-safety.mjs",
     "mcp:verify": "node scripts/verify-orbitype-mcp.mjs",
     "figma:verify": "node scripts/verify-figma.mjs",
+    "images:avif": "node scripts/convert-images-avif.mjs",
     "cms:install": "node scripts/cms/install-schema.mjs",
     "cms:migrate": "node scripts/cms/migrate.mjs",
     "cms:seed": "node scripts/cms/seed.mjs",
@@ -73,6 +74,7 @@
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "pretty-quick": "^4.2.2",
+    "sharp": "^0.35.4",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.65.0"
   }

@@ -1,0 +1,44 @@
+---
+import { translate } from "~/lib/i18n"
+import type { I18nString } from "~/types/i18n"
+import type { Locale } from "~/config/locales"
+
+interface Item {
+  img?: string
+  alt?: I18nString
+}
+
+interface Props {
+  title?: I18nString
+  items?: Item[]
+  locale: Locale
+}
+
+const { title, items = [], locale } = Astro.props
+---
+
+<section class="molino-section molino-section-soft">
+  <div class="container-wide">
+    <h2 class="molino-heading-md text-molino-ink mb-10 text-center">
+      {translate(title, locale)}
+    </h2>
+    <div class="grid gap-6 md:grid-cols-3">
+      {
+        items.map((item) =>
+          item.img ? (
+            <img
+              src={item.img}
+              alt={translate(item.alt, locale)}
+              class="h-[340px] w-full rounded-2xl object-cover"
+              loading="lazy"
+            />
+          ) : (
+            <div class="molino-placeholder min-h-[340px]">
+              Fotografía próximamente
+            </div>
+          ),
+        )
+      }
+    </div>
+  </div>
+</section>

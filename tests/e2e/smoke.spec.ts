@@ -1,18 +1,23 @@
 import { expect, test } from "@playwright/test"
 
 test.describe("smoke", () => {
-  test("home renders hero section", async ({ page }) => {
+  test("home renders molino hero", async ({ page }) => {
     const response = await page.goto("/")
     expect(response?.status()).toBe(200)
-    await expect(
-      page.getByRole("heading", { level: 1, name: "El Molino Ruso" }),
-    ).toBeVisible()
+    await expect(page.getByTestId("molino-hero")).toBeVisible()
+    await expect(page.getByTestId("molino-hero-title")).toContainText(
+      "La calidad no es solo un estándar",
+    )
   })
 
-  test("home shows bakery feature grid", async ({ page }) => {
+  test("home shows menu section", async ({ page }) => {
     await page.goto("/")
+    await expect(page.getByTestId("molino-menu")).toBeVisible()
     await expect(
-      page.getByRole("heading", { level: 2, name: "Lo que nos distingue" }),
+      page.getByRole("heading", {
+        level: 2,
+        name: "Lo que se hornea hoy en El Molino Ruso",
+      }),
     ).toBeVisible()
   })
 

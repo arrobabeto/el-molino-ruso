@@ -1,0 +1,39 @@
+---
+import { translate } from "~/lib/i18n"
+import type { I18nString } from "~/types/i18n"
+import type { Locale } from "~/config/locales"
+
+interface Props {
+  title?: I18nString
+  paragraphs?: I18nString[]
+  ctaLabel?: I18nString
+  ctaHref?: string
+  locale: Locale
+}
+
+const {
+  title,
+  paragraphs = [],
+  ctaLabel,
+  ctaHref = "#encargos",
+  locale,
+} = Astro.props
+---
+
+<section class="molino-section molino-section-soft">
+  <div class="container-wide mx-auto max-w-[900px] text-center">
+    <h2 class="molino-heading-md text-molino-ink mb-8">
+      {translate(title, locale)}
+    </h2>
+    <div class="mb-8 space-y-4">
+      {
+        paragraphs.map((paragraph) => (
+          <p class="molino-lead">{translate(paragraph, locale)}</p>
+        ))
+      }
+    </div>
+    <a href={ctaHref} class="text-molino-olive text-sm font-semibold underline">
+      {translate(ctaLabel, locale)}
+    </a>
+  </div>
+</section>

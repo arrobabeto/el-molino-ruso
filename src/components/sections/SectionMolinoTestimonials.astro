@@ -1,0 +1,86 @@
+---
+import { translate } from "~/lib/i18n"
+import type { I18nString } from "~/types/i18n"
+import type { Locale } from "~/config/locales"
+
+interface Item {
+  author?: I18nString
+  rating?: I18nString
+  quote?: I18nString
+  source?: I18nString
+}
+
+interface Props {
+  title?: I18nString
+  lead?: I18nString
+  img?: string
+  items?: Item[]
+  ctaLabel?: I18nString
+  ctaHref?: string
+  locale: Locale
+}
+
+const {
+  title,
+  lead,
+  img = "/images/cafe-interior.avif",
+  items = [],
+  ctaLabel,
+  ctaHref = "https://www.google.com/maps",
+  locale,
+} = Astro.props
+---
+
+<section
+  id="reseñas"
+  class="molino-section molino-section-alt"
+  data-testid="molino-testimonials"
+>
+  <div class="container-wide grid items-center gap-10 lg:grid-cols-2">
+    <img
+      src={img}
+      alt=""
+      class="aspect-[4/5] w-full rounded-2xl object-cover shadow-sm lg:aspect-auto lg:min-h-[520px]"
+      loading="lazy"
+    />
+
+    <div>
+      <h2 class="molino-heading-lg text-molino-ink mb-4">
+        {translate(title, locale)}
+      </h2>
+      <p class="molino-lead mb-8">{translate(lead, locale)}</p>
+
+      <div class="divide-molino-cream-border divide-y">
+        {
+          items.map((item) => (
+            <figure class="py-5 first:pt-0 last:pb-0">
+              <div class="mb-2 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                <figcaption class="text-molino-ink font-semibold">
+                  {translate(item.author, locale)}
+                </figcaption>
+                <span class="text-molino-orange text-sm">
+                  {translate(item.rating, locale)}
+                </span>
+              </div>
+              <blockquote class="text-molino-brown text-sm leading-relaxed italic">
+                “{translate(item.quote, locale)}”
+              </blockquote>
+              <p class="text-molino-gold mt-2 text-xs">
+                {translate(item.source, locale)}
+              </p>
+            </figure>
+          ))
+        }
+      </div>
+
+      <a
+        href={ctaHref}
+        class="btn-secondary mt-8"
+        target="_blank"
+        rel="noopener"
+      >
+        {translate(ctaLabel, locale)}
+      </a>
+    </div>
+  </div>
+</section>

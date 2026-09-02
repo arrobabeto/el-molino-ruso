@@ -1,0 +1,67 @@
+---
+import { translate } from "~/lib/i18n"
+import type { I18nString } from "~/types/i18n"
+import type { Locale } from "~/config/locales"
+
+interface Props {
+  name?: I18nString
+  eyebrow?: I18nString
+  role?: I18nString
+  paragraphs?: I18nString[]
+  signOff?: I18nString
+  signature?: I18nString
+  img?: string
+  locale: Locale
+}
+
+const {
+  name,
+  eyebrow,
+  role,
+  paragraphs = [],
+  signOff,
+  signature,
+  img = "/images/olesia.avif",
+  locale,
+} = Astro.props
+---
+
+<section
+  id="nosotros"
+  class="molino-section molino-section-soft"
+  data-testid="molino-chef"
+>
+  <div class="container-wide grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+    <div class="lg:order-2">
+      <img
+        src={img}
+        alt={translate(name, locale)}
+        width={800}
+        height={600}
+        class="border-molino-cream-border mx-auto w-full max-w-[480px] rounded-2xl border object-cover shadow-sm lg:mx-0 lg:max-w-none"
+        loading="lazy"
+      />
+    </div>
+
+    <div class="lg:order-1">
+      <p class="molino-eyebrow mb-3">{translate(eyebrow, locale)}</p>
+      <h2 class="molino-heading-lg text-molino-ink mb-2">
+        {translate(name, locale)}
+      </h2>
+      <p class="text-molino-brown mb-8 font-serif text-lg italic">
+        {translate(role, locale)}
+      </p>
+
+      <div class="text-molino-ink space-y-5 text-base leading-relaxed">
+        {paragraphs.map((paragraph) => <p>{translate(paragraph, locale)}</p>)}
+      </div>
+
+      <div
+        class="border-molino-cream-border text-molino-ink mt-8 border-t pt-6"
+      >
+        <p>{translate(signOff, locale)}</p>
+        <p class="mt-1 font-serif font-bold">{translate(signature, locale)}</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,93 @@
+---
+import { translate } from "~/lib/i18n"
+import type { I18nString } from "~/types/i18n"
+import type { Locale } from "~/config/locales"
+
+interface Link {
+  label?: I18nString
+  href: string
+}
+
+interface Props {
+  title?: I18nString
+  phone?: I18nString
+  email?: I18nString
+  address?: I18nString
+  callLabel?: I18nString
+  whatsappLabel?: I18nString
+  socialTitle?: I18nString
+  socialLinks?: Link[]
+  followLabel?: I18nString
+  locale: Locale
+}
+
+const {
+  title,
+  phone,
+  email,
+  address,
+  callLabel,
+  whatsappLabel,
+  socialTitle,
+  socialLinks = [],
+  followLabel,
+  locale,
+} = Astro.props
+---
+
+<section class="molino-section molino-section-soft">
+  <div class="container-wide grid gap-10 lg:grid-cols-2">
+    <div>
+      <h2 class="molino-heading-md text-molino-ink mb-6">
+        {translate(title, locale)}
+      </h2>
+      <ul class="text-molino-brown mb-8 space-y-3 text-sm">
+        <li>{translate(phone, locale)}</li>
+        <li>{translate(email, locale)}</li>
+        <li>{translate(address, locale)}</li>
+      </ul>
+      <div class="flex flex-wrap gap-3">
+        <a href="tel:+524446007007" class="btn-secondary"
+          >{translate(callLabel, locale)}</a
+        >
+        <a
+          href="https://wa.me/524446007007"
+          class="btn-primary"
+          target="_blank"
+          rel="noopener"
+        >
+          {translate(whatsappLabel, locale)}
+        </a>
+      </div>
+    </div>
+    <div>
+      <h2 class="molino-heading-md text-molino-ink mb-6">
+        {translate(socialTitle, locale)}
+      </h2>
+      <ul class="text-molino-brown mb-8 space-y-3 text-sm">
+        {
+          socialLinks.map((link) => (
+            <li>
+              <a
+                class="enter:text-molino-olive underline"
+                href={link.href}
+                target="_blank"
+                rel="noopener"
+              >
+                {translate(link.label, locale)}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a
+        href="https://instagram.com/elmolino_ruso"
+        class="btn-secondary"
+        target="_blank"
+        rel="noopener"
+      >
+        {translate(followLabel, locale)}
+      </a>
+    </div>
+  </div>
+</section>

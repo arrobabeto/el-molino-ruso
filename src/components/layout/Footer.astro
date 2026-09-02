@@ -1,26 +1,102 @@
 ---
-import { phrases } from "~/lib/phrases"
-import { translate } from "~/lib/i18n"
 import type { Locale } from "~/config/locales"
-import { siteName } from "~/lib/site"
 
 interface Props {
   locale: Locale
 }
 
-const { locale } = Astro.props
+const { locale: _locale } = Astro.props
 const year = new Date().getFullYear()
+
+const navLinks = [
+  { label: "Menú", href: "#menu" },
+  { label: "Reseñas", href: "#reseñas" },
+  { label: "Nosotros", href: "#nosotros" },
+  { label: "Encargos", href: "#encargos" },
+  { label: "Ubicación", href: "#ubicacion" },
+]
+const whatsappUrl = "https://wa.me/524446007007"
 ---
 
-<footer class="mt-auto border-t border-neutral-200">
-  <div
-    class="container-wide flex flex-col gap-2 py-8 text-sm text-neutral-500 sm:flex-row sm:items-center sm:justify-between"
-  >
-    <p>
-      © {year}
-      {" "}
-      {siteName()}
-    </p>
-    <p>{translate(phrases.all_rights_reserved, locale)}</p>
+<footer class="molino-footer bg-molino-ink text-white">
+  <img
+    src="/images/hero-skyline.png?v=8"
+    alt=""
+    class="molino-footer-skyline"
+    width="2048"
+    height="514"
+    loading="lazy"
+    aria-hidden="true"
+  />
+
+  <div class="container-wide relative z-10 py-16">
+    <div class="grid gap-10 md:grid-cols-3">
+      <div>
+        <div class="mb-4 flex items-center gap-3">
+          <img
+            src="/images/logo.avif"
+            alt=""
+            class="size-[50px] rounded-full object-cover"
+            width="50"
+            height="50"
+          />
+          <span class="font-serif text-xl font-bold">El Molino Ruso</span>
+        </div>
+        <p class="text-sm leading-relaxed text-white/80">
+          Un pedazo de Rusia en tu ciudad. Pan de masa madre, croissants
+          hojaldrados a mano y repostería fina.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-4 text-sm font-semibold tracking-wide uppercase">
+          Navegación
+        </h2>
+        <ul class="space-y-2 text-sm text-white/80">
+          {
+            navLinks.map((link) => (
+              <li>
+                <a class="enter:text-white transition-colors" href={link.href}>
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="mb-4 text-sm font-semibold tracking-wide uppercase">
+          Contacto & Horarios
+        </h2>
+        <ul class="space-y-2 text-sm text-white/80">
+          <li>
+            Av. Cordillera de los Himalaya 737, Lomas 4ta Sección, San Luis
+            Potosí, S.L.P.
+          </li>
+          <li>
+            WhatsApp:{" "}
+            <a
+              class="enter:text-white underline"
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener"
+            >
+              +52 444 600 7007
+            </a>
+          </li>
+          <li>Horario: Lun–Dom 7:00 am – 9:00 pm</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="my-10 border-white/20" />
+
+    <div
+      class="flex flex-col gap-4 text-sm text-white/70 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {year} El Molino Ruso. Todos los derechos reservados.</p>
+      <p class="text-xs">Visa · Mastercard · Discover · American Express</p>
+    </div>
   </div>
 </footer>

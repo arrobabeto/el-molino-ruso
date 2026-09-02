@@ -1,0 +1,44 @@
+---
+import { translate } from "~/lib/i18n"
+import type { I18nString } from "~/types/i18n"
+import type { Locale } from "~/config/locales"
+
+interface Step {
+  label?: I18nString
+  value?: I18nString
+}
+
+interface Props {
+  title?: I18nString
+  lead?: I18nString
+  steps?: Step[]
+  locale: Locale
+}
+
+const { title, lead, steps = [], locale } = Astro.props
+---
+
+<section class="molino-section">
+  <div class="container-wide grid gap-10 lg:grid-cols-2">
+    <div>
+      <h2 class="molino-heading-md text-molino-ink mb-4">
+        {translate(title, locale)}
+      </h2>
+      <p class="molino-lead">{translate(lead, locale)}</p>
+    </div>
+    <dl class="space-y-4">
+      {
+        steps.map((step) => (
+          <div class="border-molino-cream-border flex items-start justify-between gap-6 border-b pb-4">
+            <dt class="text-molino-brown text-sm font-semibold">
+              {translate(step.label, locale)}
+            </dt>
+            <dd class="text-molino-ink text-right text-sm">
+              {translate(step.value, locale)}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
