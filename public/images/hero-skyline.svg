@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 240" fill="none" aria-hidden="true">
+  <!-- Fallback wrapper; primary asset is hero-skyline.png -->
+  <image href="/images/hero-skyline.png" width="1440" height="240" preserveAspectRatio="xMidYMax meet" />
+</svg>

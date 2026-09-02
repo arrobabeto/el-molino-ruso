@@ -1,0 +1,42 @@
+---
+import { translate } from "~/lib/i18n"
+import type { I18nString } from "~/types/i18n"
+import type { Locale } from "~/config/locales"
+
+interface Badge {
+  label?: I18nString
+  value?: I18nString
+}
+
+interface Props {
+  title?: I18nString
+  badges?: Badge[]
+  locale: Locale
+}
+
+const { title, badges = [], locale } = Astro.props
+---
+
+<section class="molino-section-soft border-molino-cream-border border-y py-10">
+  <div class="container-wide text-center">
+    <p
+      class="text-molino-gold mb-8 text-xs font-semibold tracking-[0.18em] uppercase"
+    >
+      {translate(title, locale)}
+    </p>
+    <div class="flex flex-wrap items-center justify-center gap-10 md:gap-16">
+      {
+        badges.map((badge) => (
+          <div class="text-center">
+            <p class="text-molino-brown mb-1 text-sm font-semibold">
+              {translate(badge.label, locale)}
+            </p>
+            <p class="text-molino-ink text-lg font-bold">
+              {translate(badge.value, locale)}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

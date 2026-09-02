@@ -1,0 +1,35 @@
+---
+import { translate } from "~/lib/i18n"
+import type { I18nString } from "~/types/i18n"
+import type { Locale } from "~/config/locales"
+
+interface Props {
+  title?: I18nString
+  ctaLabel?: I18nString
+  ctaHref?: string
+  locale: Locale
+}
+
+const {
+  title,
+  ctaLabel,
+  ctaHref = "https://wa.me/524446007007",
+  locale,
+} = Astro.props
+---
+
+<section class="bg-molino-olive py-20 text-white">
+  <div class="container-wide text-center">
+    <h2 class="molino-heading-lg mx-auto mb-10 max-w-[800px] text-white">
+      {translate(title, locale)}
+    </h2>
+    <a
+      href={ctaHref}
+      class="text-molino-olive enter:bg-molino-cream inline-flex items-center justify-center rounded-full bg-white px-8 py-4 text-base font-bold transition-colors"
+      target="_blank"
+      rel="noopener"
+    >
+      {translate(ctaLabel, locale)}
+    </a>
+  </div>
+</section>

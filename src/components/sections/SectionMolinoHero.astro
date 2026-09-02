@@ -1,0 +1,172 @@
+---
+import { translate } from "~/lib/i18n"
+import type { I18nString } from "~/types/i18n"
+import type { Locale } from "~/config/locales"
+
+interface Props {
+  eyebrow?: I18nString
+  title?: I18nString
+  lead?: I18nString
+  body?: I18nString
+  primaryLabel?: I18nString
+  primaryHref?: string
+  secondaryLabel?: I18nString
+  secondaryHref?: string
+  img?: string
+  skylineImg?: string
+  locale: Locale
+}
+
+const {
+  eyebrow,
+  title,
+  body,
+  primaryLabel,
+  primaryHref = "#menu",
+  secondaryLabel,
+  secondaryHref = "#ubicacion",
+  img = "/images/hero-photo.avif",
+  skylineImg = "/images/hero-skyline.png",
+  locale,
+} = Astro.props
+---
+
+<section class="molino-hero-scroll" data-hero-scroll data-testid="molino-hero">
+  <div class="molino-hero-scroll-track" data-hero-track>
+    <div class="molino-hero-sticky" data-hero-sticky>
+      <div class="molino-hero-backdrop" aria-hidden="true">
+        <div class="molino-hero-display-type" data-hero-display-type>
+          <span>EL MOLINO</span>
+          <span>RUSO</span>
+        </div>
+      </div>
+      <img
+        src={`${skylineImg}?v=8`}
+        alt=""
+        class="molino-hero-skyline"
+        loading="eager"
+        width={2048}
+        height={514}
+        aria-hidden="true"
+      />
+
+      <div class="molino-hero-reveal">
+        <div class="molino-hero-stage">
+          <figure class="molino-hero-photo" data-hero-photo>
+            <img
+              src={img}
+              alt=""
+              loading="eager"
+              fetchpriority="high"
+              width={1480}
+              height={960}
+            />
+          </figure>
+
+          <article class="molino-hero-card" data-hero-card>
+            <span class="molino-hero-card-ribbon" aria-hidden="true"></span>
+            <p class="molino-hero-card-eyebrow">{translate(eyebrow, locale)}</p>
+            <h1 class="molino-hero-card-title" data-testid="molino-hero-title">
+              {translate(title, locale)}
+            </h1>
+            <p class="molino-hero-card-body">{translate(body, locale)}</p>
+            <div class="molino-hero-card-actions">
+              <a
+                href={primaryHref}
+                class="btn-primary-orange"
+                target="_blank"
+                rel="noopener"
+              >
+                {translate(primaryLabel, locale)}
+              </a>
+              <a href={secondaryHref} class="btn-hero-secondary">
+                {translate(secondaryLabel, locale)}
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function initHeroScroll() {
+    const root = document.querySelector("[data-hero-scroll]")
+    const trackEl = document.querySelector("[data-hero-track]")
+    const photoEl = document.querySelector("[data-hero-photo]")
+    const cardEl = document.querySelector("[data-hero-card]")
+    const typeEl = document.querySelector("[data-hero-display-type]")
+    if (
+      !(root instanceof HTMLElement) ||
+      !(trackEl instanceof HTMLElement) ||
+      !(photoEl instanceof HTMLElement) ||
+      !(cardEl instanceof HTMLElement) ||
+      !(typeEl instanceof HTMLElement)
+    ) {
+      return
+    }
+    const track: HTMLElement = trackEl
+    const photo: HTMLElement = photoEl
+    const card: HTMLElement = cardEl
+    const displayType: HTMLElement = typeEl
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches
+    if (reducedMotion) {
+      displayType.style.opacity = "0"
+      const skyline = document.querySelector(".molino-hero-skyline")
+      if (skyline instanceof HTMLElement) skyline.style.opacity = "0"
+      photo.style.opacity = "1"
+      photo.style.setProperty("--hero-photo-y", "0px")
+      card.style.opacity = "1"
+      card.style.setProperty("--hero-card-y", "0px")
+      return
+    }
+
+    let frame = 0
+
+    function update() {
+      frame = 0
+      const trackRect = track.getBoundingClientRect()
+      const scrollRoom = track.offsetHeight - window.innerHeight
+      if (scrollRoom <= 0) return
+
+      const scrolled = Math.min(Math.max(-trackRect.top, 0), scrollRoom)
+      const progress = scrolled / scrollRoom
+
+      // Keep title + skyline very faintly visible behind the cards
+      const typeOpacity = 1 - progress * 0.94 // 1 → ~0.06
+      displayType.style.opacity = String(Math.max(0.05, typeOpacity))
+
+      const skyline = document.querySelector(".molino-hero-skyline")
+      if (skyline instanceof HTMLElement) {
+        const skyOpacity = 0.1 + (0.015 - 0.1) * Math.min(1, progress) // 0.1 → 0.015
+        skyline.style.opacity = String(Math.max(0.012, skyOpacity))
+      }
+
+      const photoOffset = (1 - progress) * 48
+      const cardOffset = (1 - progress) * 64
+      const revealProgress = Math.max(0, (progress - 0.08) / 0.92)
+
+      photo.style.opacity = String(revealProgress * 0.98)
+      photo.style.setProperty("--hero-photo-y", `${photoOffset}px`)
+
+      card.style.opacity = String(Math.max(0, (revealProgress - 0.15) / 0.85))
+      card.style.setProperty("--hero-card-y", `${cardOffset}px`)
+    }
+
+    function onScroll() {
+      if (frame) return
+      frame = window.requestAnimationFrame(update)
+    }
+
+    update()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", update, { passive: true })
+  }
+
+  initHeroScroll()
+  document.addEventListener("astro:page-load", initHeroScroll)
+</script>

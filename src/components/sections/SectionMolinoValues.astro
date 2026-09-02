@@ -1,0 +1,122 @@
+---
+import { translate } from "~/lib/i18n"
+import type { I18nString } from "~/types/i18n"
+import type { Locale } from "~/config/locales"
+
+interface Item {
+  title?: I18nString
+  text?: I18nString
+}
+
+interface Props {
+  title?: I18nString
+  items?: Item[]
+  locale: Locale
+}
+
+const { title, items = [], locale } = Astro.props
+
+const icons = ["handmade", "natural", "technique", "family"] as const
+---
+
+<section class="molino-section" data-testid="molino-values">
+  <div class="container-wide">
+    <h2 class="molino-heading-md text-molino-ink mb-12 text-center">
+      {translate(title, locale)}
+    </h2>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        items.map((item, index) => (
+          <article class="molino-value-card group">
+            <div class="molino-value-icon" aria-hidden="true">
+              {icons[index] === "handmade" && (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M12 21V11"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M12 11c-2.5 0-4-1.8-4-4.5S9.5 2 12 2s4 1.8 4 4.5S14.5 11 12 11Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M8.5 8.5 6 6M15.5 8.5 18 6M9 13l-2.5 2M15 13l2.5 2"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              )}
+              {icons[index] === "natural" && (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M12 21c4-4 7-7.5 7-11a7 7 0 1 0-14 0c0 3.5 3 7 7 11Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              )}
+              {icons[index] === "technique" && (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M12 3l1.8 5.5H19l-4.6 3.3 1.8 5.5L12 14l-4.2 3.3 1.8-5.5L5 8.5h5.2L12 3Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M5 21h14"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              )}
+              {icons[index] === "family" && (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M12 20.5s-6.5-4.2-6.5-9.1c0-2.8 2.2-5.1 5-5.1 1.6 0 3 .8 3.9 2 1-1.2 2.3-2 3.9-2 2.8 0 5 2.3 5 5.1 0 4.9-6.5 9.1-6.5 9.1Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              )}
+            </div>
+            <h3 class="text-molino-ink mb-3 font-serif text-lg leading-snug">
+              {translate(item.title, locale)}
+            </h3>
+            <p class="text-molino-brown text-sm leading-relaxed">
+              {translate(item.text, locale)}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

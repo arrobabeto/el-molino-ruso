@@ -1,0 +1,41 @@
+---
+import { translate } from "~/lib/i18n"
+import type { I18nString } from "~/types/i18n"
+import type { Locale } from "~/config/locales"
+
+interface Props {
+  title?: I18nString
+  ctaLabel?: I18nString
+  ctaHref?: string
+  variant?: "dark" | "olive"
+  locale: Locale
+}
+
+const {
+  title,
+  ctaLabel,
+  ctaHref = "https://wa.me/524446007007",
+  variant = "dark",
+  locale,
+} = Astro.props
+
+const bgClass = variant === "olive" ? "bg-molino-olive" : "bg-molino-brown"
+---
+
+<section class={`${bgClass} py-10 text-white`}>
+  <div
+    class="container-wide flex flex-col items-center justify-between gap-6 md:flex-row"
+  >
+    <h2 class="font-serif text-2xl font-bold md:text-3xl">
+      {translate(title, locale)}
+    </h2>
+    <a
+      href={ctaHref}
+      class="btn-primary shrink-0"
+      target="_blank"
+      rel="noopener"
+    >
+      {translate(ctaLabel, locale)}
+    </a>
+  </div>
+</section>

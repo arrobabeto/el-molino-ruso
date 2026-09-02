@@ -1,24 +1,23 @@
 @import "tailwindcss";
 
-/*
- * Design tokens. Tailwind 4 is CSS-first — this block is the single place to
- * retheme a project. There is no JS config file and no `darkMode` key.
- *
- * These tokens are deliberately neutral placeholders. Replace them per
- * project; do not hardcode colour values in components (ADR-0008).
- */
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Georgia", ui-serif, serif;
+  --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Lora", ui-serif, Georgia, serif;
 
-  --color-brand-50: #fdf6f0;
-  --color-brand-100: #f9e8d9;
-  --color-brand-300: #d4a574;
-  --color-brand-500: #b45309;
-  --color-brand-700: #92400e;
-  --color-brand-900: #451a03;
+  --color-molino-ink: #211d1a;
+  --color-molino-brown: #4a2c22;
+  --color-molino-brown-dark: #5e3d32;
+  --color-molino-olive: #5c6142;
+  --color-molino-gold: #a9764f;
+  --color-molino-orange: #e8862e;
+  --color-molino-cream: #f7f2e9;
+  --color-molino-cream-muted: #d4cfc7;
+  --color-molino-cream-soft: #f3eee3;
+  --color-molino-cream-border: #ece5d4;
 
   --spacing-section: 5rem;
+
+  --molino-header-height: 6rem;
 }
 
 @custom-variant enter (&:hover, &:focus-visible);
@@ -30,26 +29,295 @@
   }
 
   body {
-    @apply bg-white font-sans text-neutral-900 antialiased;
+    @apply bg-molino-cream text-molino-ink font-sans antialiased;
   }
 
   :focus-visible {
-    @apply outline-brand-500 outline-2 outline-offset-2;
+    @apply outline-molino-olive outline-2 outline-offset-2;
   }
 }
 
-/*
- * Shared component classes live here rather than in `.astro` <style> blocks.
- * Those blocks are processed separately and cannot see @theme tokens without
- * a @reference line, so `@apply` fails there with "Cannot apply unknown
- * utility class". See docs/DEVIATIONS.md V-09.
- */
 @layer components {
+  .container-wide {
+    @apply mx-auto w-full max-w-[1200px] px-6;
+  }
+
   .container-prose {
     @apply mx-auto w-full max-w-3xl px-6;
   }
 
-  .container-wide {
-    @apply mx-auto w-full max-w-6xl px-6;
+  .molino-heading-xl {
+    @apply font-serif text-4xl leading-tight font-bold tracking-tight md:text-5xl lg:text-[64px];
+  }
+
+  .molino-heading-lg {
+    @apply font-serif text-3xl leading-tight font-bold tracking-tight md:text-4xl;
+  }
+
+  .molino-heading-md {
+    @apply font-serif text-2xl leading-snug font-bold md:text-[28px];
+  }
+
+  .molino-eyebrow {
+    @apply text-molino-gold text-xs font-semibold tracking-[0.18em] uppercase;
+  }
+
+  .molino-lead {
+    @apply text-molino-brown text-base leading-relaxed md:text-lg;
+  }
+
+  .btn-primary {
+    @apply bg-molino-olive enter:bg-molino-brown inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white transition-colors;
+  }
+
+  .btn-secondary {
+    @apply border-molino-brown text-molino-brown enter:bg-molino-cream-soft inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition-colors;
+  }
+
+  .btn-whatsapp {
+    @apply bg-molino-olive enter:bg-molino-brown inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white transition-colors;
+  }
+
+  .molino-site-header {
+    @apply shrink-0;
+    height: var(--molino-header-height);
+  }
+
+  .molino-site-header-hero {
+    @apply bg-molino-ink border-molino-ink/80 border-b;
+
+    & .molino-nav-link {
+      @apply text-molino-cream/80 enter:text-white;
+    }
+
+    & .molino-nav-link-active {
+      @apply text-molino-orange;
+    }
+  }
+
+  .molino-site-header-scrolled {
+    @apply bg-molino-cream/95 border-molino-cream-border backdrop-blur;
+
+    & .molino-nav-link {
+      @apply text-molino-ink enter:text-molino-brown;
+    }
+
+    & .molino-nav-link-active {
+      @apply text-molino-olive;
+    }
+
+    & .btn-nav-whatsapp {
+      @apply bg-molino-olive border-molino-olive enter:bg-molino-brown text-white;
+    }
+  }
+
+  .molino-site-header nav {
+    @apply h-full py-0;
+  }
+
+  .btn-nav-whatsapp {
+    @apply border-molino-cream enter:bg-white/10 inline-flex items-center justify-center rounded-lg border px-4 py-2.5 font-semibold text-white transition-colors;
+  }
+
+  .molino-hero-graphic {
+    height: calc(100dvh - var(--molino-header-height));
+    min-height: 280px;
+  }
+
+  .molino-hero-scroll-track {
+    height: 220vh;
+  }
+
+  .molino-hero-sticky {
+    position: sticky;
+    top: var(--molino-header-height);
+    height: calc(100dvh - var(--molino-header-height));
+    min-height: 520px;
+    overflow: hidden;
+  }
+
+  .molino-hero-backdrop {
+    @apply bg-molino-ink absolute inset-0 z-0;
+  }
+
+  .molino-hero-display-type {
+    @apply pointer-events-none absolute inset-x-0 top-[10%] z-[1] flex flex-col items-center text-center font-serif leading-[0.88] font-bold tracking-tight select-none;
+    font-size: clamp(3.5rem, 15.3vw, 13.75rem);
+    opacity: 1;
+    will-change: opacity;
+
+    & span {
+      color: #b5aea3;
+      opacity: 1;
+    }
+  }
+
+  .molino-hero-skyline {
+    @apply pointer-events-none absolute right-0 bottom-0 left-0 z-[5] block w-full object-contain object-bottom;
+    height: clamp(180px, 42vh, 320px);
+    opacity: 0.1;
+    will-change: opacity;
+  }
+
+  .molino-hero-reveal {
+    @apply absolute inset-0 z-20 flex justify-center;
+  }
+
+  .molino-hero-stage {
+    position: relative;
+    width: min(100%, 1440px);
+    height: 100%;
+  }
+
+  /* Figma 36:122 PhotoFrame — left 566/1440, top ~20px below nav, 740×480, r=20 */
+  .molino-hero-photo {
+    @apply absolute z-10 overflow-hidden shadow-2xl;
+    left: 39.3056%;
+    top: 3.2%;
+    width: 51.3889%;
+    aspect-ratio: 740 / 480;
+    border-radius: 20px;
+    opacity: 0;
+    transform: translate3d(0, var(--hero-photo-y, 48px), 0);
+    will-change: transform, opacity;
+
+    & img {
+      @apply h-full w-full object-cover;
+    }
+  }
+
+  /* Figma 36:123 OverlappingEditorialCard — left 133/1440, top 160px below nav, 585×395; user r=25 */
+  .molino-hero-card {
+    @apply bg-molino-cream-soft absolute z-20 flex flex-col gap-4 p-8 shadow-xl md:p-10;
+    left: 9.2361%;
+    top: 26%;
+    width: 40.625%;
+    max-width: 585px;
+    border-radius: 25px;
+    opacity: 0;
+    transform: translate3d(0, var(--hero-card-y, 64px), 0);
+    will-change: transform, opacity;
+  }
+
+  .molino-hero-card-ribbon {
+    @apply bg-molino-orange block h-1 w-[60px];
+  }
+
+  .molino-hero-card-eyebrow {
+    @apply text-molino-olive text-xs font-semibold tracking-[0.14em] uppercase;
+  }
+
+  .molino-hero-card-title {
+    @apply text-molino-ink font-serif text-2xl leading-tight font-bold md:text-[32px];
+  }
+
+  .molino-hero-card-body {
+    @apply text-molino-ink text-sm leading-relaxed md:text-base;
+  }
+
+  .molino-hero-card-actions {
+    @apply mt-2 flex flex-wrap items-center gap-4;
+  }
+
+  .btn-primary-orange {
+    @apply bg-molino-orange enter:bg-molino-gold inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold text-white transition-colors;
+  }
+
+  .btn-hero-secondary {
+    @apply text-molino-ink enter:text-molino-brown border-molino-ink inline-flex items-center justify-center rounded-full border px-5 py-2.5 text-sm font-medium transition-colors;
+  }
+
+  @media (max-width: 767px) {
+    .molino-hero-scroll-track {
+      height: 200vh;
+    }
+
+    .molino-hero-photo {
+      left: 50%;
+      right: auto;
+      top: 6%;
+      width: min(92vw, 420px);
+      transform: translate3d(-50%, var(--hero-photo-y, 48px), 0);
+    }
+
+    .molino-hero-card {
+      left: 50%;
+      top: auto;
+      bottom: 1.25rem;
+      width: min(92vw, 400px);
+      transform: translate3d(-50%, var(--hero-card-y, 64px), 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .molino-hero-scroll-track {
+      height: auto;
+    }
+
+    .molino-hero-sticky {
+      position: relative;
+      height: auto;
+      min-height: calc(100dvh - var(--molino-header-height));
+    }
+
+    .molino-hero-photo,
+    .molino-hero-card {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    .molino-hero-display-type {
+      opacity: 0 !important;
+    }
+  }
+
+  .molino-card {
+    @apply border-molino-cream-border rounded-2xl border bg-white p-6 shadow-sm;
+  }
+
+  .molino-value-card {
+    @apply border-molino-cream-border enter:border-molino-gold/40 enter:-translate-y-0.5 enter:shadow-md flex h-full flex-col items-center rounded-2xl border bg-white px-6 py-8 text-center shadow-sm transition-[border-color,box-shadow,transform] duration-200;
+  }
+
+  .molino-value-icon {
+    @apply bg-molino-cream text-molino-olive enter:bg-molino-olive enter:text-white mb-5 flex h-14 w-14 items-center justify-center rounded-full transition-colors duration-200;
+
+    & svg {
+      @apply h-7 w-7;
+    }
+  }
+
+  .molino-section {
+    @apply bg-molino-cream-soft py-section;
+  }
+
+  .molino-section-dark {
+    @apply bg-molino-brown text-white;
+  }
+
+  .molino-section-soft {
+    @apply bg-molino-cream-soft;
+  }
+
+  .molino-section-alt {
+    @apply bg-molino-cream-border;
+  }
+
+  .molino-product-image {
+    @apply bg-molino-cream-soft h-[200px] w-full overflow-hidden rounded-xl object-cover;
+  }
+
+  .molino-placeholder {
+    @apply bg-molino-cream-soft text-molino-gold flex h-full min-h-[200px] w-full items-center justify-center rounded-xl text-sm;
+  }
+
+  .molino-footer {
+    @apply relative overflow-hidden;
+  }
+
+  .molino-footer-skyline {
+    @apply pointer-events-none absolute right-0 bottom-0 left-0 z-0 block w-full object-contain object-bottom;
+    height: clamp(140px, 28vh, 240px);
+    opacity: 0.08;
   }
 }

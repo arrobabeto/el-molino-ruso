@@ -1,0 +1,14 @@
+---
+import type { Locale } from "~/config/locales"
+
+interface Props {
+  img?: string
+  locale: Locale
+}
+
+const { img = "/images/mostrador.avif", locale: _locale } = Astro.props
+---
+
+<section>
+  <img src={img} alt="" class="h-[460px] w-full object-cover" loading="lazy" />
+</section>

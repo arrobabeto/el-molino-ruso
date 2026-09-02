@@ -1,7 +1,26 @@
 {
   "requiredPages": {
     "home": {
-      "components": ["SectionHero", "SectionFeatureGrid", "SectionCta"]
+      "components": [
+        "SectionMolinoHero",
+        "SectionMolinoReputation",
+        "SectionMolinoMenu",
+        "SectionMolinoHours",
+        "SectionMolinoTestimonials",
+        "SectionMolinoChef",
+        "SectionMolinoStory",
+        "SectionMolinoTeam",
+        "SectionMolinoValues",
+        "SectionMolinoDifferentiators",
+        "SectionMolinoEncargosHero",
+        "SectionMolinoEncargosSteps",
+        "SectionMolinoGallery",
+        "SectionMolinoBandCta",
+        "SectionMolinoLocation",
+        "SectionMolinoContact",
+        "SectionMolinoFacade",
+        "SectionMolinoFinalCta"
+      ]
     }
   }
 }

@@ -1,0 +1,36 @@
+---
+import { translate } from "~/lib/i18n"
+import type { I18nString } from "~/types/i18n"
+import type { Locale } from "~/config/locales"
+
+interface Block {
+  title?: I18nString
+  paragraphs?: I18nString[]
+}
+
+interface Props {
+  blocks?: Block[]
+  locale: Locale
+}
+
+const { blocks = [], locale } = Astro.props
+---
+
+<section class="molino-section">
+  <div class="container-wide space-y-16">
+    {
+      blocks.map((block) => (
+        <div class="mx-auto max-w-[800px] text-center">
+          <h2 class="molino-heading-md text-molino-ink mb-6">
+            {translate(block.title, locale)}
+          </h2>
+          <div class="space-y-4">
+            {(block.paragraphs ?? []).map((paragraph) => (
+              <p class="molino-lead">{translate(paragraph, locale)}</p>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>

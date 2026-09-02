@@ -1,0 +1,93 @@
+---
+import { translate } from "~/lib/i18n"
+import type { I18nString } from "~/types/i18n"
+import type { Locale } from "~/config/locales"
+
+interface MenuItem {
+  name?: I18nString
+  price?: I18nString
+  description?: I18nString
+  img?: string
+  ctaLabel?: I18nString
+  ctaHref?: string
+}
+
+interface Props {
+  title?: I18nString
+  lead?: I18nString
+  items?: MenuItem[]
+  disclaimer?: I18nString
+  ctaLabel?: I18nString
+  ctaHref?: string
+  locale: Locale
+}
+
+const {
+  title,
+  lead,
+  items = [],
+  disclaimer,
+  ctaLabel,
+  ctaHref = "#menu",
+  locale,
+} = Astro.props
+
+const whatsappDefault =
+  "https://wa.me/524446007007?text=Hola%20El%20Molino%20Ruso%2C%20me%20gustar%C3%ADa%20hacer%20un%20pedido."
+---
+
+<section id="menu" class="molino-section" data-testid="molino-menu">
+  <div class="container-wide">
+    <div class="mb-12 max-w-[800px]">
+      <h2 class="molino-heading-lg text-molino-ink mb-4">
+        {translate(title, locale)}
+      </h2>
+      <p class="molino-lead">{translate(lead, locale)}</p>
+    </div>
+
+    <div class="mb-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        items.map((item) => (
+          <article class="molino-card flex flex-col">
+            {item.img ? (
+              <img
+                src={item.img}
+                alt=""
+                class="molino-product-image mb-4"
+                loading="lazy"
+              />
+            ) : (
+              <div class="molino-placeholder mb-4 min-h-[200px]">
+                Fotografía próximamente
+              </div>
+            )}
+            <div class="mb-2 flex items-start justify-between gap-3">
+              <h3 class="text-molino-ink font-serif text-xl font-bold">
+                {translate(item.name, locale)}
+              </h3>
+              <span class="text-molino-gold shrink-0 font-bold">
+                {translate(item.price, locale)}
+              </span>
+            </div>
+            <p class="text-molino-brown mb-6 flex-1 text-sm leading-relaxed">
+              {translate(item.description, locale)}
+            </p>
+            <a
+              href={item.ctaHref ?? whatsappDefault}
+              class="btn-whatsapp mt-auto w-full text-center"
+            >
+              {translate(item.ctaLabel, locale)}
+            </a>
+          </article>
+        ))
+      }
+    </div>
+
+    <div
+      class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p class="text-molino-gold text-sm">{translate(disclaimer, locale)}</p>
+      <a href={ctaHref} class="btn-secondary">{translate(ctaLabel, locale)}</a>
+    </div>
+  </div>
+</section>

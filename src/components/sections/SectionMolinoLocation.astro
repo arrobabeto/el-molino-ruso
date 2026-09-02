@@ -1,0 +1,53 @@
+---
+import { translate } from "~/lib/i18n"
+import type { I18nString } from "~/types/i18n"
+import type { Locale } from "~/config/locales"
+
+interface Props {
+  title?: I18nString
+  address?: I18nString
+  ctaLabel?: I18nString
+  ctaHref?: string
+  mapEmbed?: string
+  locale: Locale
+}
+
+const {
+  title,
+  address,
+  ctaLabel,
+  ctaHref = "https://maps.google.com/?q=El+Molino+Ruso+San+Luis+Potosi",
+  mapEmbed,
+  locale,
+} = Astro.props
+---
+
+<section id="ubicacion" class="molino-section">
+  <div class="container-wide grid gap-10 lg:grid-cols-2">
+    <div>
+      <h2 class="molino-heading-md text-molino-ink mb-4">
+        {translate(title, locale)}
+      </h2>
+      <p class="molino-lead mb-8">{translate(address, locale)}</p>
+      <a href={ctaHref} class="btn-primary" target="_blank" rel="noopener">
+        {translate(ctaLabel, locale)}
+      </a>
+    </div>
+    {
+      mapEmbed ? (
+        <div class="border-molino-cream-border relative aspect-[4/3] min-h-[280px] w-full overflow-hidden rounded-2xl border shadow-sm">
+          <iframe
+            title="Mapa de El Molino Ruso"
+            src={mapEmbed}
+            class="absolute inset-0 h-full w-full border-0"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="strict-origin-when-cross-origin"
+          />
+        </div>
+      ) : (
+        <div class="molino-placeholder min-h-[380px]">Mapa próximamente</div>
+      )
+    }
+  </div>
+</section>
